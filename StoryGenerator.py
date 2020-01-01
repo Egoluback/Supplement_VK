@@ -9,19 +9,25 @@ class StoryGenerator:
         self.countIter = countIter
 
         if (self.mode == "g_onyourown"):
-            self.start = self.readDataSet()
+            self.start = -1
+            data = self.readDataset()
+            if (data):
+                self.start = data
     
-    def readDataSet(self):
+    def readDataset(self):
         result = ""
         with open(random.choice(DATASETS), "r", encoding="utf-8") as file:
-            text = file.readlines()
+            try:
+                text = file.readlines()
+            except:
+                return False
             print("text", len(text))
             while result == "" or len(result) < 20:
                 result = random.choice(text)
         
         print(result)
         
-        return result
+        return result.rstrip()
         
     
     def load(self):
@@ -38,6 +44,7 @@ class StoryGenerator:
             return ''.join(arr[len(arr) - 10 : len(arr)])
     
     def Generate(self):
+        if (self.start == -1): return
         result_arr = [self.start]
 
         for i in range(self.countIter):
