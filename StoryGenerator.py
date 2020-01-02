@@ -21,7 +21,6 @@ class StoryGenerator:
                 text = file.readlines()
             except:
                 return False
-            print("text", len(text))
             while result == "" or len(result) < 20:
                 result = random.choice(text)
         
@@ -53,29 +52,3 @@ class StoryGenerator:
             result_arr.append(continue_str)
 
         return ''.join(result_arr)
-
-
-if __name__ == "__main__":
-    countIter = 5
-    start = "Жил да был"
-
-    isLoad = False
-
-    for i in range(len(sys.argv)):
-        if (i == 1):
-            if (sys.argv[i] == "y"):
-                isLoad = True
-        elif (i == 2):
-            countIter = sys.argv[i]
-        elif (i == 3):
-            start = ' '.join(sys.argv[i].split("-"))
-        
-    
-    storyGenerator = StoryGenerator(start, int(countIter))
-    if (isLoad): storyGenerator.load()
-
-    print("let's get started...")
-    with open("result.txt", "w") as file:
-        file.write(storyGenerator.Generate())
-    
-

@@ -5,16 +5,8 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 
+from const import *
 from StoryGenerator import StoryGenerator
-
-# url = 'https://models.dobro.ai/gpt2_poetry/'
-url = 'https://models.dobro.ai/gpt2/medium/'
-TOKEN = '47bbb34e7a81b4d1ce62dd3a4e6fbfdc9e29c6c7d6dac8a0a09b61bb3a70a4c68ae3afd50d98446f7d6ae'
-PUBLIC_ID = 190299951
-
-def get_sample(text):
-    response = requests.post(url, json={"prompt": text, "length": 50})
-    return json.loads(response.text)["replies"][0]
 
 vk_session = vk_api.VkApi(token=TOKEN)
 vk_session._auth_token()
@@ -26,7 +18,6 @@ print("Bot has been launched.")
 
 while True:
     try:
-    
         for event in longpoll.listen():
             print("there is new event - " + str(event.type))
             if (event.type == VkBotEventType.MESSAGE_NEW):
